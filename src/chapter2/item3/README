@@ -1,0 +1,22 @@
+3 methods for implementing Singletons are demonstrated
+
+1. Making the INSTANCE field public.
+-- More clearer API
+-- Simpler implementation.
+-- Serialization/De issues.
+2. Making the method to get the INSTANCE public.
+-- Easier to update the API - since the public static method can be modified to return the
+same instance per thread, or have a specific implementation.
+-- Method reference can be used as a supplier, because Tv::getInstance is a Supplier<Tv>
+-- Serialization/De issues
+
+Method 1 and 2 suffer from the issues that when serialization/deserialization happens,
+additional INSTANCES get created during deserialization even for a singleton class.
+
+This can be resolved by using the readResolve method, which returns the previously
+serialized instance of the same object.
+
+This is demonstrated in the corresponding classes by performing serialization and deserialization.
+
+3. Public ENUM with single INSTANCE
+No such issues of serialization and deserialization.
