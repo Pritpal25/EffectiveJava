@@ -1,0 +1,18 @@
+Item 7 : Eliminate obsolete references
+
+Memory leaks can happen in the following situations
+
+1) When the program manages its own memory.
+-- Make sure to let the GC know that a reference is no longer valid based off of the code logic, since some references
+can be obsolete even when the program has reference to it - stack increasing and then decreasing in size.
+
+2) In caches : entries added and then forgotten to be removed.
+-- Implement cache using "WeakHashMap" : only keeps entry till the time the program has a reference to the item
+being cached.
+-- Implement using "LinkedHashMap" : can use the removeOldestEntry method to remove the reference to the oldest used
+cache entry.
+
+3) Listeners and Callbacks : Forget to deregister them after the use can result in memory leaks. To ensure they are
+garbage collected, collect the references in WeakHashMap.
+
+Debugging - careful code inspection or using "heap-profiler".
