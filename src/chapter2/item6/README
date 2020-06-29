@@ -1,0 +1,28 @@
+
+Item 6
+
+-- Avoid creating unnecessary objects
+-- Immutable objects should always be reused.
+
+String s = new String("string"); // Very bad, uses string as an argument to a string constructor
+String s = "string" // good, will always be one copy per JVM for the same string literal.
+
+-- Avoid creating objects by using static factory methods instead of constructors(must create new objects)
+Ex : Boolean b = new Boolean("true"); //bad
+vs Boolean b = Boolean.valueOf("true"); // good - reuses the object.
+
+-- Expensive object creations should cached and be re-used (roman numeral ex).
+
+-- Possible to lazy-load the value of the variable at first use, but not recommended, due to implementation
+complications as well as lack of noticeable performance gains.
+
+-- Some mutable objects are also re-usable, example adapters, since they are backed by same object.
+
+-- Autoboxing is another way to create unnecessary objects : ALWAYS prefer primitives to boxed alternatives.
+
+-- Explicit objects should be created when they enhance clarity, simplicity and power of the program.
+
+-- Avoiding object creation is generally a bad idea, unless used for really heavyweight objects, like DB connections.
+
+-- Penalty for NOT creating objects when required - security issues, bugs etc
+-- Penalty for creating objects when NOT required - performance and style.
