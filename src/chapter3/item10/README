@@ -1,0 +1,33 @@
+ITEM 10 : Obeying General COntract when overriding equals method.
+
+* When NOT to Override Equals ?
+-- Each instance of the class is inherently unique. : ex Thread class, represent active entities rather than values.
+-- There is no need for class to provide "logical equality" test. : ex Pattern class, didnt override the same since
+the it was thought against to be the requirement of having a test of pattern equality as a requirement.
+-- Superclass has already overridden the equals method and the behavior is appropriate for this class as well - ex Set
+implementations get their definition from AbstractSet, same with AbstractList and AbstractMap.
+-- Class is private/package-private and equals will never get invoked.
+@Override public boolean equals(Object o) {
+    throw new AssertionError(); // Method is never called.
+}
+
+* When TO Override Equals ?
+-- Class has a notion of logical equality, like in value classes (ex Integer or String.),
+and the superclass has not overridden the equals method.
+-- Wrong to compare object references there when the expectation is to compare the values in the objects.
+-- Exception to this rule - classes that use instance control to ensure that at most one object exists with each value.
+example Enums.
+
+* General Contract for overriding equals
+-- Reflexive : For any non null reference, x.equals(x) always returns true.
+-- Symmetric : For any non null reference, x.equals(y) always returns y.equals(x) : CaseInsensitiveString example.
+-- Transitive : For any non null reference, x.equals(y) and y.equals(z), then x.equals(z) : ColorPoint example
+
+There is no way to extend an instantiable class and add value component to it while preserving the equality contract.
+It may be suggested to use getClass instead of instaceOf in the equality check, but it fails basic object oriented
+paradigms, check AtomicPoint class for example.
+
+-- Consistent : For any non null reference, x.equals(y) must consistently return same value provided no fields used
+in the equals comparisons change.
+-- Non-nullity : For any non null reference, x.equals(null) always returns false.
+
