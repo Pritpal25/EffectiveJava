@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
+// Example demonstrating this getClass in Point class::equals method doesnt work.
+
 public class AtomicPoint extends Point{
     private static final AtomicInteger counter = new AtomicInteger();
 
@@ -26,7 +28,7 @@ public class AtomicPoint extends Point{
         AtomicPoint ap = new AtomicPoint(1,3);
 
         // This should return true but its returning false
-        // Investigating on what's goign on here.
+        // Investigating on what's going on here.
         System.out.println(sampleSet.contains(ap));
     }
 }

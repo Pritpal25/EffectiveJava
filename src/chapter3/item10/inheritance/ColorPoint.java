@@ -1,4 +1,7 @@
-package chapter3.item10;
+package chapter3.item10.inheritance;
+
+import chapter3.item10.Color;
+import chapter3.item10.Point;
 
 public class ColorPoint extends Point {
     private Color color;
