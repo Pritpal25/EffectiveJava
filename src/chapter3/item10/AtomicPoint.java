@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-// Example demonstrating this getClass in Point class::equals method doesnt work.
+// Example demonstrating how using getClass in Point::equals method doesn't work.
 
 public class AtomicPoint extends Point{
     private static final AtomicInteger counter = new AtomicInteger();
@@ -27,8 +27,9 @@ public class AtomicPoint extends Point{
 
         AtomicPoint ap = new AtomicPoint(1,3);
 
-        // This should return true but its returning false
-        // Investigating on what's going on here.
+        // This was originally returning false since the Point class did not have a HashCode overridden method.
+        // Works fine now with the correctly implemented equals method. if the equals method has getClass in it for
+        // typeCheck, this still returns false.
         System.out.println(sampleSet.contains(ap));
     }
 }

@@ -18,8 +18,14 @@ public class Point {
         return (x == p.x) && (y ==p.y);
     }
 
+    @Override
+    public int hashCode() {
+        int result = Integer.hashCode(x);
+        return 31 * result + Integer.hashCode(y);
+    }
+
     // Use this for demonstration with AtomicPoint class.
-    /*@Override
+/*    @Override
     public boolean equals(Object obj) {
         if(obj == null  || (obj.getClass() != getClass())) {
             return false;
