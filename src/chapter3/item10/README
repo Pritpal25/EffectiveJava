@@ -23,11 +23,41 @@ example Enums.
 -- Symmetric : For any non null reference, x.equals(y) always returns y.equals(x) : CaseInsensitiveString example.
 -- Transitive : For any non null reference, x.equals(y) and y.equals(z), then x.equals(z) : ColorPoint example
 
-There is no way to extend an instantiable class and add value component to it while preserving the equality contract.
-It may be suggested to use getClass instead of instaceOf in the equality check, but it fails basic object oriented
-paradigms, check AtomicPoint class for example.
+  -- There is no way to extend an instantiable class and add value component to it while preserving the equality contract.
+  It may be suggested to use getClass instead of instaceOf in the equality check, but it fails basic object oriented
+  paradigms, check AtomicPoint class for example.
+  -- The idea is to prefer Composition over Inheritance for instantiable classes that need to add value. You can do
+  composition without violating the equals Contract. See composition.ColorPoint
 
 -- Consistent : For any non null reference, x.equals(y) must consistently return same value provided no fields used
 in the equals comparisons change.
--- Non-nullity : For any non null reference, x.equals(null) always returns false.
+  -- Do not rely on unreliable sources of information for the objects to be used in comparision. Like in URL class, we
+  rely on the IP address, which can sometimes be there and sometimes not.
 
+-- Non-nullity : For any non null reference, x.equals(null) always returns false.
+  -- There is no need for an explicit null checking in the equals methods and definitely dont throw NullPointerException
+  while trying to do so, it violates the contract of equals method. instanceOf method checks for nullness on its own and
+  if the argument passed is null, the check will simply fails and we return false in that case.
+
+-- Recipe for a good equals method : Check PhoneNumber example
+1. Compare the argument reference to this object using ==. If they are equal, return true.
+2. Check if the argument is an instanceOf proper type. If this class implements an interface, it might be beneficial to
+check against the Interface type, to allow for equality amongst different implementations. Eg: Set, List have such
+equals methods.
+3. Typecast the object into proper type. - this is sure to succeed because of 2 above.
+4. Compare each significant field
+    a) For primitives use ==
+    b) For double and float use, Float.compare(float, float) and Double.compare(double,double)
+    c) For objects that can legitimately compare null reference, use Objects.equal(object, object)
+    d) It might be beneficial to compare the fields that are most likely to differ or less expensive to compare first
+    for better performance.
+5. ALWAYS OVERRIDE HASHCODE WHEN YOU OVERRIDE EQUALS METHOD.
+6. Don't substitute Object in the argument with the class type
+    public boolean equals(MyType object) {} : This method overloads the equals method instead of overriding the same.
+    This can generate false positives and MUST ALWAYS BE AVOIDED.
+
+    Adding an override annotation to above will make the compiler complaint.
+    @Override public boolean equals(MyType object) {} : Wont compile.
+
+7. Prefer using Google AutoValue to generate equals and hashcode. IDEs also generate them but they dont track changes
+    in the class, so its hard to keep them honest and they require manual testing at class updates.
