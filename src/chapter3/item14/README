@@ -1,0 +1,34 @@
+CONSIDER IMPLEMENTING COMPARABLE
+
+-- Not an object method, its a method in Comparable Interface.
+-- When writing a class that has obvious natural ordering - alphabetical, numerical or chronological, implement
+Comparable interface.
+    public interface Comparable<T> {
+        int compareTo(T t);
+    }
+-- By implementing comparable, your class will work with many generic algos and collection implementation that depend on
+that interface. (See WordList example)
+
+-- Contract for compareTo
+    -- sgn(x.compareTo(y)) == -sgn(y.compareTo(x))
+    -- if sgn(x.compareTo(y)) > 0 and sgn(y.compareTo(z)) > 0, then sgn(x.compareTo(z)) > 0
+    -- if sgn(x.compareTo(y)) == 0, then sgn(x.compareTo(z)) == sgn(y.compareTo(y)) for all z
+    -- Strong recommended, if sgn(x.compareTo(y)) == 0, then x.equals(y).
+
+    The above(1,2,4) has very similar restrictions as equals contract : Reflexivity, Symmetry, Transitivity, which implies that
+    inheriting a value class and adding value component not possible without violating this contract as well. Soln. is to
+    prefer composition over inheritance.
+
+    4th point above : if compareTo contract and equals Contract are inconsistent, then sorted collections behave differently.
+    Example : new BigDecimal(1.0) and new BigDecimal(1.00) : See ** SingleFieldComparable example VERY IMPORTANT**
+    Add to HashSet - 2 different values : both different as per equals contract
+    Add to TreeSet - 1 value : both same as per compareTo contract.
+
+-- Classes that violate compareTo contract can break sorting collection like TreeMap, TreeSet and utility classes like
+Collections/Arrays that contain sorting/searching algos.
+
+-- Avoid using <,> in compare methods : See MultipleFieldComparable methods.
+
+-- Also possible to build a comparator at class initialization time, by using comparator constructor methods from
+Comparator class. See MultipleFieldComparable for a commented out example.
+
