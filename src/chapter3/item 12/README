@@ -1,0 +1,16 @@
+ITEM 12 : ALWAYS override toSring
+
+-- Default toString implementation is className@hashCode. This doesnt help with debugging. So always override the
+toString method in instantiable class.
+-- ToString should return all the interesting information in the object when practical, otherwise contain the main information.
+-- Decide whether you want to provide the exact format or not. If you do, provide a static factor method or constructor
+that can help transform the string to object and vice versa.
+-- Advantage of specifying the format is it helps the client to know examtly what they are consuming
+-- Disadvantage : they get tied to the format and can be using it to extract the object information if the public methods
+arent available for class members.
+-- To avoid above, always provide programmatic access to public members.
+-- DONT write toString for enum (already provided) and static utility classes.
+-- Always provide it for abstract classes whose subclasses can be instantiated, example is collections inherit the toString
+from the parent abstract collection classes.
+-- Google AutoValue generated toString but in some cases it may make sense to implement on your own since toString has a
+semantic meaning behind it.
