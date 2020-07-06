@@ -16,7 +16,7 @@ public class PhoneNumber {
     // Used object in the method argument and had override annotation.
     @Override
     public boolean equals(Object obj) {
-        // Copared reference to this.
+        // Compared reference to this.
         if(this == obj) {
             return true;
         }
