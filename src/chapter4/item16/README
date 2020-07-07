@@ -1,0 +1,22 @@
+ITEM 16 : IN PUBLIC CLASSES, USE PUBLIC ACCESSORS RATHER THAN PUBLIC FIELDS
+
+-- Disadvantages of public field (no encapsulation)
+    a) You cant change representation without changing the public API.
+    b) You cant enforce invariants(methods that check for validity of the data).
+    c) You cant take auxiliary action when a field is accessed.
+
+-- If a class is public, provide accessors and mutators to preserve the flexibility to change internal representation. - PublicPoint
+
+-- If the class is package-private or nested, its somewhat okay to expose the public fields. - PackagePrivatePoint
+    -- Generates less visual clutter for the class and its clients.
+    -- Scope of the change in implementation is limited to either the package or encapsulating class.
+
+-- Never a good idea for a public class to expose fields, somewhat okay if the fields are immutable - PublicImmutableTime
+    -- You cant take auxiliary action when a field is accessed.
+    -- You cant change representation without changing the public API.
+    -- BUT, You can still enforce invariants(methods that check for validity of the data).
+
+-- Summary
+    -- Public classes should never expose mutable fields. (See PublicPoint)
+    -- Less harmful, but questionable, for them to expose the immutable fields. (See PublicImmutableTime)
+    -- Sometimes desirable for package-private or nested classes to expose fields - mutable or immutable (See PackagePrivate Point).
