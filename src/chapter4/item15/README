@@ -1,0 +1,57 @@
+ITEM 15 : MINIMIZE ACCESSIBILITY OF CLASSES AND ITS MEMBERS
+
+-- Most important factor of a well designed component is the degree to which a component hides its internal data and
+implementation details from other components - known as information hiding or encapsulation.
+--Advantages
+    -- Decouples the components
+    -- Develop, test, optimize in isolation.
+    -- Replace easily since components not coupled.
+
+-- Accessibility determined by
+    -- Location of the declaration
+    -- Access modifier used.
+
+-- Rule of thumb : Make each class/member as inaccessible as possible. Iow, use lowest possible access level for proper
+functioning of the software you are writing.
+
+-- For top level non nested class or interface
+    -- package-private(default) :
+        -- part of implementation, encapsulated
+        -- If used only by 1 class in package, consider making it private static nested class.
+    -- public : part of public API, requires support to maintain compatibility.
+    -- More important to reduce accessibility of a public class(part of exported API),
+    than of a package-private(already part of implementation)
+
+-- For members(fields, methods, nested classes and nested interfaces)
+    -- private : Accessible from top level class in which declared.
+    -- package-private(default) : package in which declared, except for interface members, which are public by default.
+    -- protected : package in which declared and subclasses.
+    -- public : everywhere.
+
+-- Carefully design your classes's public API, then make the rest private.
+-- Increase the access only if absolutely necessary.
+-- Private and package private can leak into exported API is the class implements serializable.
+
+-- Since an instance of a subclass should be usable anywhere as the instance of superclass is(liskov substitution principle),
+you cannot make access of a method in subclass more restrictive that superclass. That means overridden methods cannot be
+more restrictive in subclass than in the superclass itself.
+
+-- Okay to make members as well as top level classes more accessible for testing. Fortunately package-private is sufficient
+since tests can be run as part of the package itself.
+
+-- Instance fields of public classes should rarely be public
+    -- Specially if its non final or reference to a mutable object.
+    -- You gave up the ability to take any action when the class is modified. Fields can be modified outside the class
+     : such classes are not generally thread safe.
+    -- Even for final fields or reference to immutable object, by making them public you give up future ability to update implementation.
+    -- Same applies to static fields with one exception
+        -- You can expose constant via public static final fields, assuming they are integral part of the abstraction
+        provided by the class.
+        -- Critical that these fields contain primitives or reference to immutable object.
+        -- Reference to mutable has same disadvantages of a non final field.(reference cannot be modified but the object
+        referred can be)
+            -- As such, having a public static final array field or an accessor that returns the array is always wrong
+            since the non 0 length array is always mutable.
+            -- Solution(choose based on the need of the clients) : see page 76:
+                a) Make the array private and return unmodifiable list.
+                b) Make the array private and return a clone of the array.
