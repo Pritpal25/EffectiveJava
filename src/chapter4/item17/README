@@ -1,0 +1,53 @@
+ITEM 17 : MINIMIZE MUTABILITY
+
+-- Immutable class is the one whose instances cannot be initialized. Eg : String, BigInteger, BigDecimal.
+-- They are easier to design, implement and use. Less prone to error and more secure.
+
+-- Five rules to Immutable classes
+    -- Ensure the class cannot be extended :
+        --Make the class final(Final Complex) or
+        --Have a static factory instead of public constructor. (Static factory Complex)
+            -- For the clients outside the package, this class isn't extendible since it doesn't provide protected/public
+            constructor.
+    -- Make the fields final.
+    -- Make the fields private.
+    -- Don't provide mutator methods for the fields.
+    -- Ensure exclusive access to mutable components. - Fields that can contain mutable objects, ensure that clients of
+    the class cannot get reference to that. Make defensive copies in constructors, accessors and readObject methods.
+
+    -- In truth for immutable classes, no method should produce an *externally visible* change to the object state. As
+    such, immutable classes can have non final fields that hold the value of expensive calculations which can be reused.
+    Example hashCode is cached in String.
+
+-- Immutable Classes use functional approach as opposed to procedural/imperative approach
+    -- Ex : Method names are plus/minus in place of add/subtract.
+
+-- ADVANTAGES OF IMMUTABLE CLASSES.
+    -- Immutable objects are simple - exactly one state after getting constructed. Only constructors need to establish
+    class invariants.
+    -- Immutable objects are inherently thread safe.
+        -- Encourage to share regularly used instances by providing static instances.
+        public static final Complex ZERO = new Complex(0, 0);
+        -- Take a step further to provide static factories and cache the objects which cab be reused.
+            -- Never have to make defensive copies.
+            -- No need for clone or copy constructor methods.
+    -- Immutable objects can also share their internals
+        -- BigDecimal uses internally an array(magnitude) to represent a state.
+        -- Negate method can simply refer to the same array instance.
+    -- Immutable objects provide failure atomicity for free
+        -- State never changes, so no possibility of temporary inconsistency.
+
+-- DISADVANTAGES OF IMMUTABLE CLASSES.
+    -- Requires a new instance for every small change
+        -- BigDecimal requires us to copy the entire huge array for even a change in last bit of the array.
+        -- Vs BitSet, which allows you to change the value of a single bit in a million bit instance in constant time.
+        -- This problem is amplified if the operation is multi-step and we only care about final result.
+        -- To solve this
+            -- Either the class needs to predict multistep operation and provide multistep operation as primitive.
+                -- Internally the class can implement a package-private companion class to speed up operations.
+                -- Or otherwise, a public companion class can be provided if operation is not predictable - ex :
+                StringBuilder.
+
+-- For Serializable Immutable classes that have one or more mutable field references,
+    provide explicit readObject, readResolve or use ObjectOutputStream.writeUnshared and ObjectInputStream.readUnshared
+
