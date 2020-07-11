@@ -1,0 +1,28 @@
+ITEM 18 : FAVOR COMPOSITION OVER INHERITANCE
+(We are referring to 'implementation inheritance' - one class extends another and not 'interface inheritance' - one
+interface extends another or one class implements an interface)
+
+-- Inheritance is good when:
+    -- Within a package - both subclass and superclass.
+    -- Done from a class specifically designed and documented for inheritance.
+
+DISADVANTAGES OF INHERITANCE WHEN NOT DESIGNED FOR :
+-- Inheritance violates encapsulation (see InstrumentedHashSet)
+   -- Relies on implementation details of the parent class for the subclass to work, which can change form release to
+   release, effectively breaking subclass if that doesn't change in tandem.
+
+-- Subclass acquires new methods to add when they are added to superclass.
+    -- Lets say you override all the add methods with a predicate that the values must adhere to before getting added
+    to the instance of the subclass, adding a new add method to the superclass violates that predicate and enables the
+    subclass to have an illegal entry.
+
+-- WHEN TO USE INHERITANCE
+    -- When its absolutely clear that B is a subclass of A, then only inherit from A, otherwise have a private instance
+    of A in B.
+    -- Inheritance needlessly exposes the implementation details of the superclass.(giving ability to corrupt the
+    invariants of the subclass)
+    -- Are you comfortable inheriting the flaws of the superclass, if so, then inherit, otherwise, use composition and
+    forwarding since composition enables you to hide the superclass flaws by designing new APIs.
+
+-- Composition with forwarding requires appropriate inteface to exist on which the wrapper can be implemented
+    -- NEED TO UNDERSTAND THIS ?? Unclear from the example in the book ??
