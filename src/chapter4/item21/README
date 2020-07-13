@@ -1,0 +1,10 @@
+ITEM 21 : DESIGN INTERFACES FOR POSTERITY
+
+-- Prior to Java8, there was no way to add methods to the interface without braking the existing implementations.
+-- From Java8 onwards, you can add default methods to the interface that have a default implementation that is
+used by all the interface implementations.
+-- Its possible that NOT all implementations will work well with this generic default new method implementation.
+Eg : removeIf method added to the Collection interface, doesnt work well with the non Java platform apache
+SynchronizedCollection class, which implements the collection interface.
+-- Default methods can be used to provide default implementations at the time of creating the interfaces.
+-- They are not designed to support removing methods/changing signatures of existing methods from the interface.
