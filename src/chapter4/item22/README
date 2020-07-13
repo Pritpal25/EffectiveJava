@@ -1,0 +1,17 @@
+ITEM 22 : USE INTERFACES ONLY TO DEFINE TYPES
+
+-- Interfaces should be used only to define types. The interface can then be used to refer to the instances of the class
+that implement the interface.
+
+-- Constant interfaces fail this test, they just contain constant static fields with no methods. If a class needs to
+use them, it exports them by implementing the interface
+    -- Confused the user of the class.
+    -- Use of constants by the class is an internal implementation detail, implementing interface for that leaks that
+    detail in the exported API.
+
+-- Several other better mechanisms to export constants
+    -- If tied with the class/interface using it - add them directly there.
+    -- Otherwise use enum type.
+    -- Lastly, can also be exported from a static utility class that is non instantiable - by making the
+    constructor private or class final.
+        -- Use the static import facility to avoid qualifying the constant name with the class name.
