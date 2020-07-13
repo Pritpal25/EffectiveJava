@@ -1,0 +1,11 @@
+ITEM 23 : PREFER CLASS HIERARCHIES TO TAGGED CLASSES
+
+-- DISADVANTAGES OF TAGGED CLASSES (See taggedClass/Figure)
+    -- Have extra boilerplate - enum, tag field, switch statements.
+    -- Memory footprint is increased because of extra fields in every instance.
+    Fields cannot be made final unless constructors initiate irrelevant fields as well.
+    -- If the fields are incorrectly set during initialization, can result in runtime errors. There is no help
+    from compiler to fix this issue.
+    -- Data type of the class does not define the type of the instance in question.
+    -- Adding new flavors is error prone - ensuring all switch statements are modified is necessary. (Easy to add
+    Square in hierarchy as opposed to in tagged class)
