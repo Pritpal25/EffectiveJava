@@ -1,0 +1,39 @@
+ITEM 26 : DON'T USE RAW TYPES
+
+-- Before generics, one had to cast, every time you read an item out of collection.
+-- With generics, you can tell what type of objects are permitted in the collection.
+-- With generics, you don't need to add cast, Compiler does that automatically.
+-- If you try to insert the wrong type, compiler would not let you do so and generate a compile time error.
+
+Definitions
+-- Generic type : Class or interface whose declaration has one or more type parameters. List<E>
+-- Parameterized type : Generic type with a type parameter defined. List<String>
+-- Raw type : Generic type without the accompanying type information. List
+    -- These exist only for backwards compatibility. It had to be legal to be able to pass raw types where
+    generics were expected and vice versa.
+
+-- List<Object> better than List (raw type) - SEE GenericSubTyping
+    -- Generics have subtyping rules : List<String> is a subtype of List and not of List<Object> : BAD
+    -- You loose type safety if you use raw types.
+
+-- Unbounded WildcardTypes - See UnboundedWildcardType(bad example but demonstrates the point)
+    -- When you don't know about the type and don't care about the type, use unbounded wildcard type.
+    -- Again, better than raw type because it provides type safety.
+        -- You can put elements in raw type set, but not in unbounded wildcard type(other than null). Attempting that
+        would generate compile time error.
+    -- Set<?> - capable of holding any set, read as "set of some type"
+
+-- When to use raw types - EXCEPTIONS
+    1) Must use raw types in class literals.
+        -- Parameterized types not permitted.
+        -- Raw types, Array type and primitive types permitted.
+        -- List.class, String[].class and int.class OK, List<String> or List<?> NOT OK.
+    2) instanceOf operation
+        -- Generic information is erased at runtime, so illegal to use instanceOf operation on parameterized types
+        other than wildcard type
+
+        // Legit use of raw type
+        if(o instanceOf Set) { // raw type
+            Set<?> s = (Set<?>)o; // wildcard type
+        }
+
