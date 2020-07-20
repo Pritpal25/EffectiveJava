@@ -1,0 +1,16 @@
+ITEM 28 : PREFER LISTS OVER ARRAYS
+
+-- 2 major differences between lists and arrays
+    ARRAYS
+        -- Covariant : If Type1 is a subtype of Type2, then Type1[] is a subtype of Type2[]
+        -- Reified : Arrays know and enforce their type information at runtime.
+    LISTS
+        -- Invariant : For any 2 Type1 and Type2, List<Type1> is neither a subtype nor a supertype of List<Type2>
+        -- Erasure : Enforce type constraints only at compile time and discard(erase) their element type information
+        at runtime.
+
+-- Because of above differences, Arrays and Generics do not mix well.
+    -- Its illegal to create arrays of generic, parameterized or type parameter.
+        -- new List<E>[], new List<String>[] and new E[] are ILLEGAL.
+    -- Its illegal, since arrays dont provide type safety at compile time and it would break the fundamental
+        promise of generics.
