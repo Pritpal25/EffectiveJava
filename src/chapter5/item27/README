@@ -1,0 +1,18 @@
+ITEM 27 : ELIMINATE UNCHECKED WARNINGS
+
+-- Working with generics generates a lot of unchecked warnings, which must be eliminated, otherwise there can be a
+    ClassCastException at runtime.
+    Eg : Set<Car> cars = new HashSet();
+    This will generate a warning, since the HashSet is of raw type. This can be fixed by doing so:
+    Set<Car> cars = new HashSet<>(); // No need to specify the type, its interpreted as Car automatically.
+
+-- If you cannot eliminate a warning but are sure that the code that generated it is type safe,
+    use @SuppressWarnings("unchecked") annotation.
+    -- Add a comment describing why the code is typeSafe when adding this annotation.
+    -- If you ignore the unchecked annotation that is type safe, without putting the above annotation, the next time
+    a serious issue comes up, it'll drown in the previous generated warning.
+
+    -- This annotation can be used on *any declaration* : from variable to class.
+    -- Always minimize the scope of the annotation, even if that requires creating a new variable.
+    -- This annotation cannot be added to a return statement, since its not a declaration. So, at time, we need to
+    assign the return statement to a variable to add the annotation and then return the variable.
