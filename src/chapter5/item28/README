@@ -14,3 +14,12 @@ ITEM 28 : PREFER LISTS OVER ARRAYS
         -- new List<E>[], new List<String>[] and new E[] are ILLEGAL.
     -- Its illegal, since arrays dont provide type safety at compile time and it would break the fundamental
         promise of generics.
+
+-- Types such as List<E> and List<String> are technically known as non-reifiable types
+    -- Types whose runtime representation contains less information than compile time representation.
+    -- Because of erasure, the only parameterized types that are reifiable are unbounded wildcard types such as
+    List<?> and Map<?,?> : Its legal to create arrays of these types.
+
+-- When you get generic array creation error/unchecked cast warning on cast to an array type, its best to use
+    collection List<E> instead of Array E[].
+    -- See ChooserVer1, ChooserVer2, ChooserVer3
