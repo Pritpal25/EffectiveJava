@@ -1,0 +1,18 @@
+ITEM 29 : PREFER GENERIC TYPES
+
+-- Self generated classes based off of Object are good candidates for Generification. : See StackVer2 vs StackVer1
+-- One of the issues with generification if arrays are involved is the generic array creation.
+    -- Get around that by either
+        1) Casting at the constructor (as shown in StackVer2)
+            -- Preferred approach - only 1 cast required.
+            -- Leads to heap pollution - runtime type of array is not same as compile time type. Harmless in this
+            situation but not always.
+            https://en.wikipedia.org/wiki/Heap_pollution
+        2) Casting every-time the element is read from within the array in the generic class itself.
+            -- Not a preferred approach
+            -- Cast required at all places where the read is happening.
+
+-- Limitation of generic types - type parameter cannot be primitive.
+-- <E extends Delayed> implies that all the type parameters have to be a extending Delayed, this is dont to take
+advantage of the methods in Delayed without explicit casting or fear of ClassCastException.
+    -- Here type parameter E is known as a bounded type parameter.
