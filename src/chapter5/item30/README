@@ -1,0 +1,12 @@
+ITEM 30 : FAVOR GENERIC METHODS
+
+-- Like Generic Types, generic methods are also preferable.
+-- They provide type safety at compile time and eliminate the need for explicit casts. (See SetUnion)
+
+-- Recursive Type Bound : Type parameter bound by an expression involving type parameter itself.(See RecursiveTypeBound)
+    -- E extends Comparable<E> : read as, any type E that can be compared with itself.
+
+-- Summary
+    -- Generic methods are safer and easier to use than methods that required clients to put casts on input params
+     and return values.
+    -- Make such methods generic, and it can be done without breaking existing clients.
