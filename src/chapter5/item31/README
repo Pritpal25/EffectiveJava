@@ -1,0 +1,23 @@
+Item 31 : USE BOUNDED WILDCARDS TO INCREASE API FLEXIBILITY
+
+-- Parameterized type are invariant (for any 2 types T1 and T2, List<T1> and List<T2> are neither subtypes nor
+    supertypes of each other).
+-- Since String is a subtype of Object, it seems counterintuitive that List<String> is not a subtype of List<Object>
+-- Since, List<String> cannot do everything that List<Object> can, they are not subtypes...Liskov Substitution
+    Principle.
+
+-- Stack<Number> - see ex BoundedWildcardStack.
+    -- push(Integer) works
+    -- would expect pushAll(Iterable<Integer>) to work as well - but doesn't since parameterized types are invariant.
+    -- producer input param needs to be any subtype of the type, defined as <? extends E> : all types are subtypes of
+        themselves.
+
+    -- Object obj = pop() works
+    -- would expect popAll(Collection<Object>) to work, but doesnt for the same reason as above.
+    -- consumer input params needs to be any supertype of the type, defined as <? super E> : all types are subtypes of
+        themselves.
+
+    -- PECS : PRODUCER EXTENDS CONSUMER SUPER
+
+-- DO NOT use wildcard types in return types. It forces the client code to use wildcard types as well.
+    -- See BoundedSetUnion
