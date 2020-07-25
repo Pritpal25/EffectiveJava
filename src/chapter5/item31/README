@@ -21,3 +21,19 @@ Item 31 : USE BOUNDED WILDCARDS TO INCREASE API FLEXIBILITY
 
 -- DO NOT use wildcard types in return types. It forces the client code to use wildcard types as well.
     -- See BoundedSetUnion
+
+-- If a type parameter is only used once in method declaration, replace it with wildcard. - (See Swap)
+    -- If its a bounded type param, replace with bounded wildcard
+    -- If its an unbounded type param, replace with unbounded wildcard.
+
+    -- Do this specially for a public API, especially because it alleviates the burden of clients to have to deal with
+        Type parameters.
+        -- This causes an issue with implementation - its not possible to add a non-null value to the List<?>.
+        -- Solution is to use the generic helper method to capture the type.
+        -- The compiler knows that the type of elements is E, hence it can safely put the values that come out, back
+            into the list of type List<E>.
+
+-- SUMMARY
+    -- Prefer wildcards in the public API to increase API flexibility.
+    -- Remember Producer-Extends Consumer-Super
+        -- Comparators and Comparables are always consumers.
