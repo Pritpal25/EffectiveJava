@@ -1,0 +1,7 @@
+-- Constructors and Static Factory Methods share a limitation
+    -- Inability to scale well to large number of optional parameters.
+
+-- There are 3 ways to construct objects for large params list
+    -- Telescoping constructors
+    -- Java Beans Pattern.
+    -- Builder Patter.

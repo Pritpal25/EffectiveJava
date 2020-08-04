@@ -7,8 +7,8 @@ package chapter2.item2.telescopingConstructors;
 
 public class Car {
     // Required
-    private String name;
-    private String make;
+    private final String name;
+    private final String make;
 
     // Optional
     private int year;

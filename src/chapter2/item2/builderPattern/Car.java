@@ -6,10 +6,10 @@ package chapter2.item2.builderPattern;
 * a) Improved readability/writeability of client code.
 * b) Avoids parameter swapping due to explicit parameter naming while setting them up.
 * c) Does not MANDATE MUTABILITY - object cab be constructed with all the required parameters at once.
-* (although at that point, it isnt much different than a constructor with all the req parameters).
+* (although at that point, it isn't much different than a constructor with all the req parameters).
 *
 * DISADVANTAGES
-* a) Object construction requires contruction of a builder first - can be performance impacting.
+* a) Object construction requires construction of a builder first - can be performance impacting.
 *
 */
 public class Car {
