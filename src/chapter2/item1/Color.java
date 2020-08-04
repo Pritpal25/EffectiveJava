@@ -1,15 +1,13 @@
 package chapter2.item1;
 
-/*Item 1 demostrates how using static methods for contructors can provide 3 advantages
-* a) These methods have names as opposed to contructors
-* b) They can have in built logic to return the same type at every invocation.
-* c) They can also return the subtype, as opposed to the contructors.
-* */
-
 public class Color {
     private String color = "Red";
 
-    // Example for constructors with names
+    // Uncomment this to see disadvantage no 1.
+    /*private Color() {
+
+    }*/
+    // Example for static factory method with names
     public static Color getDefaultColor() {
         // some logic
         return new Color();

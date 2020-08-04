@@ -1,0 +1,19 @@
+Item 1 demonstrates how using static methods for constructors can provide 3 advantages
+
+ADVANTAGES OF STATIC FACTORY METHODS
+a) These methods have names as opposed to constructors
+    -- Avoids you from writing constructors that just differ in the order of their parameters.
+b) They can have in built logic to return the same object at every invocation.
+    -- Boolean.valueOf(boolean) never created new instances each time its invoked.
+    -- Helps save time if object creation is expensive.
+    -- Immutable value classes can guarantee that no 2 equal instances exist.
+    -- Use Interface as return type and send implementations in return.
+        -- Collection Interface has Collections static factory class which returns the instances of non public
+            implementations.
+c) They can also return the subtype of the return type, as opposed to the constructors.
+
+DISADVANTAGES
+a) Classes without public/protected constructors cant be subclassed.
+    -- One has to manually get rid of the default constructor provided by compiler by making it private.
+b) SFM dont show up in public API - so hard to figure out how to get instance of a class.
+    -- Use better naming : Page 9
