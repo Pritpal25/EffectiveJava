@@ -1,0 +1,8 @@
+Java Language supports 4 kinds of types :
+
+-- INTERFACES
+    -- (including annotations)
+-- CLASSES
+    -- (including enums)
+-- ARRAYS
+-- PRIMITIVES
