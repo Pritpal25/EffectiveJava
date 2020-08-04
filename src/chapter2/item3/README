@@ -5,11 +5,14 @@
 -- Simpler implementation.
 -- Serialization/De issues.
 2. Making the method to get the INSTANCE public.
+-- API makes it clear that the class is singleton.
 -- Easier to update the API - since the public static method can be modified to return the
 same instance per thread, or have a specific implementation.
 -- Method reference can be used as a supplier, because Tv::getInstance is a Supplier<Tv>
 -- Serialization/De issues
 
+For both the above methods, although there is no way for a normal client to invoke the constructor. Some priviledged
+client might invoke it using reflection : AccessibleObject.setAccessible method.
 Method 1 and 2 suffer from the issues that when serialization/deserialization happens,
 additional INSTANCES get created during deserialization even for a singleton class.
 
@@ -20,3 +23,4 @@ This is demonstrated in the corresponding classes by performing serialization an
 
 3. Public ENUM with single INSTANCE
 No such issues of serialization and deserialization.
+-- Cannot be used if enum needs to extend a superclass other than an Enum.
