@@ -22,6 +22,10 @@ public class Car {
     private int license;
     private String color;
 
+    public String getName() {
+        return name;
+    }
+
     public static class Builder {
         private String name;
         private String make;
@@ -63,12 +67,5 @@ public class Car {
         this.color = builder.color;
         this.license = builder.license;
         this.year = builder.year;
-    }
-
-    public static void main(String[] args) {
-        Car car = new Builder("Model Y", "Tesla").color("Grey").license(122334).year(2019).build();
-
-        System.out.println(car.name + " " + car.make + " " + car.year + " " + car.license + " " + car.color);
-
     }
 }
