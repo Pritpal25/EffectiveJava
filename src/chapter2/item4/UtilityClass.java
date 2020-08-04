@@ -2,7 +2,7 @@ package chapter2.item4;
 
 public class UtilityClass {
 
-    // This constructor is deliberately made public to suppress any instance being created
+    // This constructor is deliberately made private to suppress any instance being created
     // from outside the class.
     private UtilityClass() {
         // This exception is thrown to ensure that during incorrect invocation of the constructor
