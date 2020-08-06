@@ -2,7 +2,7 @@ package chapter2.item9;
 
 import java.io.*;
 
-public class TryWithFInally {
+public class TryWithFinally {
     private static final int BUFF = 8 * 1024;
 
     public static void copy(String src, String dst) throws IOException {
@@ -18,7 +18,6 @@ public class TryWithFInally {
                     out.write(buf, 0, n);
                 }
                 System.out.println(n);
-
             } finally {
                 out.close();
             }

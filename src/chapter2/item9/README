@@ -1,13 +1,13 @@
 Item 9 : Always prefer try-with-resources over try-with-finally
 
 -- For the resources that need to be manually closed after usage, prefer the former.
--- The resources must implement AutoCloseable interface(which just has a close() method)
+-- The resources must implement AutoCloseable interface(which just has a void close() method)
 to be used in the try-with-resources clause.
 
 -- Implementations are much cleaner that try with finally.
 
 -- For try with finally, the exception from the try block gets consumed and the only
-one available to the clients is the one from the finally block, which isnt much usefule for diagnosis.
+one available to the clients is the one from the finally block, which isn't much useful for diagnosis.
 -- For try with resources, the exception from the try block is the one sent to the client. Along with that the
 exception from the close() method (invoked by the clause automatically), is suppressed, howover, that too is passed to
-the clients as part of the trace. Programatically, it cab be retrieved using getSuppressed method of Throwable.
+the clients as part of the trace. Programmatically, it cab be retrieved using getSuppressed method of Throwable.
