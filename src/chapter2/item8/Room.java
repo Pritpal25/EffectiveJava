@@ -1,6 +1,6 @@
 package chapter2.item8;
 
-public class Room implements AutoCloseable {
+public class Room implements AutoCloseable{
     private static class State {
         int junkPiles;
 
@@ -15,13 +15,14 @@ public class Room implements AutoCloseable {
         state = new State(junkPiles);
     }
 
-    protected void finalize() {
+    // This may or may not get invoked prior to garbage collection.
+    @Override protected void finalize() {
         this.state.junkPiles = 0;
         System.out.println("Clean Room");
     }
 
-    @Override
-    public void close() {
+    // This method must be invoked by the client of the room class instance.
+    @Override public void close() {
         finalize();
     }
 }
