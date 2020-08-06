@@ -6,7 +6,7 @@ Its important to understand the different types of dependencies - stateless reso
 There can be some static stateless resources that can be hardcoded into a class, since they themselves never change.
 
 However, if there is an instance that can change, and a change in that instance resource can result in change in the
-behavior of your class, then that instance resource must be dependency injected.
+behavior of your class, then that instance resource must be injected.
 
 See this : https://stackoverflow.com/questions/56457262/in-what-cases-we-shouldnt-use-dependency-injection
 
@@ -15,12 +15,18 @@ WAYS TO DO DI
 -- Pass the resource into the constructor of the dependent object.
 -- Pass the resources factory method into the constructor of the dependent object
 
+Dependencies can be injected not only to the constructors, but also Static factory methods(Item 1) and Builders(Item 2)
+
+Another variant of dependency injection is to not only inject the direct dependency, but to inject the factory providing the depedency.
 Supplier<T> introduced in Java 8 is a good for representing factories. However the constructor of the dependent class
 should constrain the type of T using the wildcard expression to ensure that you are getting a supplier that can provide
 the resource of the desired type.
 
-One such example would be Supplier<T extends Tile>, this factory represented as supplier would provide a resource of
-type T or any of its subclass.
+Ex : (Supplier<? extends Tile> tileFactory) : Here the Factory that the client passes in has to supply the instances
+of Type Tile or any type that extends Tile.
+
+** Supplier<T> is a functional interface : Interfaces that have just one abstract unimplemented method. It can still
+contain other methods that have implementation, but only 1 unimplemented method.
 
 ADVANTAGES OF DI
 -- Improves the code's reusability, testability and extensibility.

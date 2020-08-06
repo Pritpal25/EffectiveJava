@@ -6,8 +6,7 @@ public class SpellChecker {
     private final Lexicon dictionary;
 
     public SpellChecker(Lexicon dictionary) {
-        Objects.requireNonNull(dictionary);
-        this.dictionary = dictionary;
+        this.dictionary = Objects.requireNonNull(dictionary);
     }
 
     public boolean isValidWord(String word) {
