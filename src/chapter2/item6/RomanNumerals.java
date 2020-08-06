@@ -24,13 +24,13 @@ public class RomanNumerals {
         for (int i = 0; i < numSets; i++) {
             long start = System.nanoTime();
             for (int j = 0; j < numReps; j++) {
-                b ^= isRomanNumeralFast("MCMLXXVI");
+                b ^= isRomanNumeralSlow("MCMLXXVI");
             }
             long end = System.nanoTime();
             System.out.println(((end - start) / (1_000. * numReps)) + " μs.");
         }
 
-        // Since this is the only real usage of b, the compiler will make sure to keep updating b in statement 28
+        // Since this is the only real usage of b, the compiler will make sure to keep updating b in statement 27
         // Otherwise, an over eager compiler could just not update the value, since its never getting used elsewhere.
         if (!b)
             System.out.println();

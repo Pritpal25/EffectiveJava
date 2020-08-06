@@ -12,17 +12,20 @@ Ex : Boolean b = new Boolean("true"); //bad
 vs Boolean b = Boolean.valueOf("true"); // good - reuses the object.
 
 -- Expensive object creations should cached and be re-used (roman numeral ex).
-
--- Possible to lazy-load the value of the variable at first use, but not recommended, due to implementation
-complications as well as lack of noticeable performance gains.
+    -- Possible to lazy-load the value of the variable at first use, but not recommended, due to implementation
+    complications as well as lack of noticeable performance gains.
 
 -- Some mutable objects are also re-usable, example adapters, since they are backed by same object.
+    Ex : keySet from the map, always contain the keys from the map, there can be multiple instances of keySet at
+    each invocation to get the keySet, however, since they are all backed by the same map, it makes little sense to do
+    so. If the map changes, they all change.
 
 -- Autoboxing is another way to create unnecessary objects : ALWAYS prefer primitives to boxed alternatives.
 
 -- Explicit objects should be created when they enhance clarity, simplicity and power of the program.
 
--- Avoiding object creation is generally a bad idea, unless used for really heavyweight objects, like DB connections.
+-- Avoiding object creation is generally a bad idea, unless used for really heavyweight objects, like DB connections, in
+    which case its possible to have object pools and use those for managing heavy-weight objects.
 
 -- Penalty for NOT creating objects when required - security issues, bugs etc
 -- Penalty for creating objects when NOT required - performance and style.

@@ -32,7 +32,7 @@ public class Autoboxing {
         long sum = fastSum(reps);
         long end = System.nanoTime();
 
-        System.out.println((end-start)/(1_000_000. * reps) + " micro secs");
+        System.out.println((end-start)/(1_000_000. * reps) + " milli secs");
 
         if(sum == 42) {
             System.out.println();
@@ -42,7 +42,7 @@ public class Autoboxing {
         sum = slowSum(reps);
         end = System.nanoTime();
 
-        System.out.println((end-start)/(1_000_000. * reps) + " micro secs");
+        System.out.println((end-start)/(1_000_000. * reps) + " milli secs");
 
         if(sum == 42) {
             System.out.println();
