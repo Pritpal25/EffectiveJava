@@ -25,6 +25,8 @@ public class AtomicPoint extends Point{
         sampleSet.add(new Point(1,3));
         sampleSet.add(new Point(1,4));
 
+        // This should return true if we were using the correct implementation of equals in Point, but since we are
+        // using getClass implementation, this fails and hence violates the liskov substitution principal.
         AtomicPoint ap = new AtomicPoint(1,3);
 
         // This was originally returning false since the Point class did not have a HashCode overridden method.

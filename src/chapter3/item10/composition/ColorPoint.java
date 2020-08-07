@@ -14,7 +14,8 @@ public class ColorPoint {
         this.color = Objects.requireNonNull(color);
     }
 
-    public Point getPoint() {
+    //Returns point view of color point.
+    public Point asPoint() {
         return point;
     }
 

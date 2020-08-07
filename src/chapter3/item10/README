@@ -1,22 +1,23 @@
 ITEM 10 : Obeying General COntract when overriding equals method.
 
-* When NOT to Override Equals ?
+* When NOT to Override Equals ? - in which case, each instance will be equal only to itself.
 -- Each instance of the class is inherently unique. : ex Thread class, represent active entities rather than values.
--- There is no need for class to provide "logical equality" test. : ex Pattern class, didnt override the same since
-the it was thought against to be the requirement of having a test of pattern equality as a requirement.
+-- There is no need for class to provide "logical equality" test. : ex Pattern class, didn't override the same since
+    it was thought against to be the requirement of having a test of pattern equality as a requirement.
 -- Superclass has already overridden the equals method and the behavior is appropriate for this class as well - ex Set
 implementations get their definition from AbstractSet, same with AbstractList and AbstractMap.
 -- Class is private/package-private and equals will never get invoked.
-@Override public boolean equals(Object o) {
-    throw new AssertionError(); // Method is never called.
-}
+    -- To avoid accidental invocation, do this
+    @Override public boolean equals(Object o) {
+        throw new AssertionError(); // Method is never called.
+    }
 
 * When TO Override Equals ?
 -- Class has a notion of logical equality, like in value classes (ex Integer or String.),
 and the superclass has not overridden the equals method.
--- Wrong to compare object references there when the expectation is to compare the values in the objects.
--- Exception to this rule - classes that use instance control to ensure that at most one object exists with each value.
-example Enums.
+-- In this case, it would be wrong to compare object references there when the expectation is to compare the values in the objects.
+    -- Exception to this rule - classes that use instance control to ensure that at most one object exists with each value.
+    example Enums. This results in logical equality being the same as object equality.
 
 * General Contract for overriding equals
 -- Reflexive : For any non null reference, x.equals(x) always returns true.
@@ -24,18 +25,23 @@ example Enums.
 -- Transitive : For any non null reference, x.equals(y) and y.equals(z), then x.equals(z) : ColorPoint example
 
   -- There is no way to extend an instantiable class and add value component to it while preserving the equality contract.
-  It may be suggested to use getClass instead of instaceOf in the equality check, but it fails basic object oriented
-  paradigms, check AtomicPoint class for example.
-  -- The idea is to prefer Composition over Inheritance for instantiable classes that need to add value. You can do
-  composition without violating the equals Contract. See composition.ColorPoint
+  -- It may be suggested to use getClass instead of instanceOf in the equality check, but it fails basic object oriented
+  paradigms(Liskov substitution principal), check AtomicPoint class for example.
+  -- The idea is to prefer Composition over Inheritance for instantiable classes that need to add value attribute.
+  You can do composition without violating the equals Contract. See composition.ColorPoint
+
+  -- IMP : Its possible to add the value attributes to the sub classes of an abstract class. As long as the parent
+            class is non-instantiable, its OKAY to add value component to the child class without violating the equals
+            contract.
+  -- ROOT OF THE PROBLEM WAS THE ABILITY TO REPRESENT THE CHILD AND THE PARENT CLASS WITH THE SAME REFERENCE.
 
 -- Consistent : For any non null reference, x.equals(y) must consistently return same value provided no fields used
 in the equals comparisons change.
-  -- Do not rely on unreliable sources of information for the objects to be used in comparision. Like in URL class, we
+  -- Do not rely on unreliable sources of information for the objects to be used in comparison. Like in URL class, we
   rely on the IP address, which can sometimes be there and sometimes not.
 
 -- Non-nullity : For any non null reference, x.equals(null) always returns false.
-  -- There is no need for an explicit null checking in the equals methods and definitely dont throw NullPointerException
+  -- There is no need for an explicit null checking in the equals methods and definitely don't throw NullPointerException
   while trying to do so, it violates the contract of equals method. instanceOf method checks for nullness on its own and
   if the argument passed is null, the check will simply fails and we return false in that case.
 
@@ -48,9 +54,12 @@ equals methods.
 4. Compare each significant field
     a) For primitives use ==
     b) For double and float use, Float.compare(float, float) and Double.compare(double,double)
-    c) For objects that can legitimately compare null reference, use Objects.equal(object, object)
-    d) It might be beneficial to compare the fields that are most likely to differ or less expensive to compare first
+    c) Objects can contain null reference, use Objects.equal(object, object)
+    d) For arrays, use Arrays.equals methods.
+    e) Performance - It might be beneficial to compare the fields that are most likely to differ or less expensive to compare first
     for better performance.
+    f) Performance - Check for the equality of the derived field if it can encompass all significant fields, otherwise,
+        we can ignore checking equality of the derived fields.
 5. ALWAYS OVERRIDE HASHCODE WHEN YOU OVERRIDE EQUALS METHOD.
 6. Don't substitute Object in the argument with the class type
     public boolean equals(MyType object) {} : This method overloads the equals method instead of overriding the same.

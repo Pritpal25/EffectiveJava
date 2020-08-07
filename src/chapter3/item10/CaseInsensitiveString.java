@@ -14,7 +14,7 @@ public class CaseInsensitiveString {
             return s.equalsIgnoreCase(((CaseInsensitiveString)obj).s);
         }
         // By providing this equals method with the knowledge of String class, we have introduced a one way
-        // interoperability. The String class doesnt know about this class, so the equality checks initiated there
+        // interoperability. The String class doesn't know about this class, so the equality checks initiated there
         // would fail.
         if (obj instanceof String) {
             return s.equalsIgnoreCase((String)obj);

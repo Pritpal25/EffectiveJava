@@ -11,6 +11,7 @@ public class ColorPoint extends Point {
         this.color = color;
     }
 
+    // Symmetry fails - since the parent class completely ignores the color and child class fails on type check
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof ColorPoint)){
@@ -23,7 +24,7 @@ public class ColorPoint extends Point {
 
     // COLOR BLINDNESS
 
-    /*@Override
+/*    @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof Point)) {
             return false;
@@ -31,8 +32,9 @@ public class ColorPoint extends Point {
 
         // If obj is Point,then run a color blind comparison, by invoking the parent equals method.
         if(!(obj instanceof ColorPoint)) {
-            return obj.equals(this);
-            // its the same as return super(obj);
+            //return obj.equals(this);
+            // its the same as return super.equals(obj);
+            return super.equals(obj);
         }
 
         ColorPoint cp = (ColorPoint)obj;
@@ -48,7 +50,7 @@ public class ColorPoint extends Point {
         System.out.println(cp.equals(p));
 
         // Add color blindness to the equals method and then run below.
-       /* ColorPoint cp1 = new ColorPoint(1, 2, Color.BLUE);
+/*        ColorPoint cp1 = new ColorPoint(1, 2, Color.BLUE);
         Point p1 = new Point(1, 2);
         ColorPoint cp2 = new ColorPoint(1, 2, Color.RED);
 
