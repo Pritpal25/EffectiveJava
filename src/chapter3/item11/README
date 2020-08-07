@@ -1,6 +1,4 @@
-ITEM 11
-
--- Always override hashcode when overriding equals method.
+ITEM 11 : Always override hashcode when overriding equals method.
 
 General Contract for HashCode method.
 -- HashCode invoked during the run of an application should return consistent value, provided no information in the
@@ -10,7 +8,7 @@ equals attributes changes (since all of those attributes are used here as well).
 
 @Override public int hashCode() { return 42;}
 Legal hash code but worst - degrades the performance. Converts hashMap into a linked list, effectively changing time
-compexity from linear to quadratic.
+complexity from linear to quadratic.
 
 -- Must exclude any fields that arent used in the computation of the equals method.
 -- May exclude derived fields.
@@ -22,7 +20,7 @@ compexity from linear to quadratic.
 .. see PhoneNumber class example.
 
 -- Don't remove significant fields from computation
--- Dont provide detailed explanation of hash calculation, dont want clients to rely on the values
+-- Don't provide detailed explanation of hash calculation, don't want clients to rely on the values
     -- So that its possible to change it in future.
 
 -- Check page 51 for a recipe of good hash code.
