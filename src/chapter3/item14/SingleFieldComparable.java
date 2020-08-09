@@ -15,8 +15,13 @@ public class SingleFieldComparable implements Comparable<SingleFieldComparable>{
 
     @Override
     public int hashCode() {
+        // Change to the below return to see duplicate values getting populated to the HashSet.
+
+        // All the add methods add to the same bucket.
         return String.CASE_INSENSITIVE_ORDER.hashCode();
-        // Change this to return s.hashCode(); to see that HashSet will have 8 entries in it.
+
+        // Forces the add method to go to a bucket provided by a case sensitive hash value.
+        // return s.hashCode();
     }
 
     @Override
@@ -30,6 +35,8 @@ public class SingleFieldComparable implements Comparable<SingleFieldComparable>{
     }
 
     public static void main(String[] args) {
+        // args to contain : maneet kaku deepa gagan Kaku Maneet Deepa Gagan kaku
+
         SingleFieldComparable cis = new SingleFieldComparable("polish");
         SingleFieldComparable cis2 = new SingleFieldComparable("Polish");
 

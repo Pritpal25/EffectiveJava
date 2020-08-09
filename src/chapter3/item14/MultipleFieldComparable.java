@@ -7,7 +7,7 @@ public class MultipleFieldComparable implements Comparable<MultipleFieldComparab
     private int lineNum;
 
     // Adding this to demonstrate how to do lazy loading of hashCode and cache the same to avoid computing everytime
-    // its needed. This isnt required for this class in general but usually for expensive to cpmpute immutable classes.
+    // its needed. This isn't required for this class but usually for expensive to compute or immutable classes.
     private int hashCode; // Initialized to 0 by default.
 
     public MultipleFieldComparable(int areaCode, int lineNum) {
@@ -47,16 +47,16 @@ public class MultipleFieldComparable implements Comparable<MultipleFieldComparab
         return result;
     }
 
-    // This is how you conctruct a static comparator. Check out Comparator class to know more about how different kinds
-    // of comparators can be constructed using comparing and thenCOmparating methods.
-    /*private static final Comparator<MultipleFieldComparable> COMPARATOR =
+    // This is how you construct a static comparator. Check out Comparator class to know more about how different kinds
+    // of comparators can be constructed using comparing and thenComparating methods.
+/*    private static final Comparator<MultipleFieldComparable> COMPARATOR =
             Comparator.comparingInt((MultipleFieldComparable pn) -> pn.areaCode)
             .thenComparingInt(pn -> pn.lineNum);*/
 
     @Override
     public int compareTo(MultipleFieldComparable o) {
         // Avoid using <,> in the compareTo methods,
-        // Use the Boxed class'es static compare methods instead.
+        // Use the Boxed class's static compare methods instead.
 
         int result = Integer.compare(areaCode, o.areaCode);
 
@@ -67,7 +67,7 @@ public class MultipleFieldComparable implements Comparable<MultipleFieldComparab
 
         // Use the below statement if you want to use the static comparator above.
         // Does the exact same job as the comparator in this method, has a slight performance hit.
-        //return COMPARATOR.compare(this, o);
+        // return COMPARATOR.compare(this, o);
     }
 
     public static void main(String[] args) {

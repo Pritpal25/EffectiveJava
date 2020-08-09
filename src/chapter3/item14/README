@@ -1,4 +1,4 @@
-CONSIDER IMPLEMENTING COMPARABLE
+ITEM 14 : CONSIDER IMPLEMENTING COMPARABLE
 
 -- Not an object method, its a method in Comparable Interface.
 -- When writing a class that has obvious natural ordering - alphabetical, numerical or chronological, implement
@@ -6,7 +6,7 @@ Comparable interface.
     public interface Comparable<T> {
         int compareTo(T t);
     }
--- By implementing comparable, your class will work with many generic algos and collection implementation that depend on
+-- By implementing comparable, your class will work with many generic algos and collection implementations that depend on
 that interface. (See WordList example)
 
 -- Contract for compareTo
@@ -25,7 +25,7 @@ that interface. (See WordList example)
     Add to TreeSet - 1 value : both same as per compareTo contract.
 
 -- Classes that violate compareTo contract can break sorting collection like TreeMap, TreeSet and utility classes like
-Collections/Arrays that contain sorting/searching algos.
+Collections/Arrays that contain sorting/searching algorithms.
 
 -- Avoid using <,> in compare methods : See MultipleFieldComparable methods.
 
