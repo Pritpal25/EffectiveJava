@@ -1,4 +1,4 @@
-ITEM 12 : ALWAYS override toSring method in instantiable classes
+ITEM 12 : ALWAYS override toString method in instantiable classes
 
 -- Default toString implementation is className@hashCode. This doesn't help with debugging. So always override the
 toString method in any instantiable class.
